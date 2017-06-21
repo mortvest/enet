@@ -1,0 +1,8 @@
+#!/bin/bash
+ARTICLE=`curl -s "http://ordnet.dk/ddo/ordbog?query=$1" | grep 'tekstmedium allow' | head -2 | tail -1 | grep -oh "n,\|t," | sed 's/.$//'`
+
+if [ "$ARTICLE" = "t" ] || [ "$ARTICLE" = "et" ]; then
+    echo "et"
+else
+    echo "en"    
+fi
