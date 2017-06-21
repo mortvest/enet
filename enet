@@ -1,9 +1,9 @@
 #!/bin/bash
-ARTICLE=`curl -s "http://ordnet.dk/ddo/ordbog?query=$1" | grep 'tekstmedium allow' | head -2 | tail -1 | grep -oh "n,\|t," | sed 's/.$//'`
+ARTICLE=`curl -s "http://ordnet.dk/ddo/ordbog?query=$1" | grep 'tekstmedium allow' | head -2 | tail -1  | grep -oh "\-.\?.\?[tn][,<]" | grep -oh "[nt]" | head -1`
 
-if [ "$ARTICLE" = "t" ] || [ "$ARTICLE" = "et" ]; then
+if [ "$ARTICLE" = "t" ]; then
     echo "et"
-elif [ "$ARTICLE" = "n" ] || [ "$ARTICLE" = "en" ]; then
+elif [ "$ARTICLE" = "n" ]; then
     echo "en"
 else
     echo "Word not found! Check spelling and try again."    
