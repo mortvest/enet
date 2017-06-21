@@ -1,6 +1,6 @@
 # enet
-Danish article lookup, works on OSX. Uses dictionary from ordnet.dk
-# Usage
+Danish article lookup, works on OSX. Uses modern Danish dictionary from [ordnet.dk](ordnet.dk/ddo)
+## Usage
 ./enet <danish_word>
-# Output 
+## Output 
 en | et
