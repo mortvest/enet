@@ -3,6 +3,8 @@ ARTICLE=`curl -s "http://ordnet.dk/ddo/ordbog?query=$1" | grep 'tekstmedium allo
 
 if [ "$ARTICLE" = "t" ] || [ "$ARTICLE" = "et" ]; then
     echo "et"
+elif [ "$ARTICLE" = "n" ] || [ "$ARTICLE" = "en" ]; then
+    echo "et"
 else
-    echo "en"    
+    echo "Word not found! Check spelling and try again."    
 fi
