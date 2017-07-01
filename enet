@@ -1,10 +1,18 @@
 #!/bin/bash
-ARTICLE=`curl -s "http://ordnet.dk/ddo/ordbog?query=$1" | grep 'tekstmedium allow' | head -2 | tail -1  | grep -oh "\-.\?.\?[tn][,<]" | grep -oh "[nt]" | head -1`
+RESULT_PAGE="http://ordnet.dk/ddo/ordbog?query=$1"
+SUGGESTION_PAGE="http://ordnet.dk/ws/ddo/livesearch?text=$1"
+ARTICLE=`curl -s $RESULT_PAGE | grep 'tekstmedium allow' | head -2 | tail -1  | grep -oh "\-.\?.\?[tn][,<]" | grep -oh "[nt]" | head -1`
 
 if [ "$ARTICLE" = "t" ]; then
     echo "et"
 elif [ "$ARTICLE" = "n" ]; then
     echo "en"
 else
-    echo "Word not found! Check spelling and try again."    
+    SUGGESTIONS=`curl -s $SUGGESTION_PAGE | sed -E 's/<\/li>|<li>/\'$'\n/g' | grep -v '<\|^$'`
+    if [ "$SUGGESTIONS" = "" ]; then
+	echo "Word not found! Check spelling and try again."
+    else
+	echo "Word not found! Did you mean one of these?"
+	echo "$SUGGESTIONS"
+    fi
 fi
