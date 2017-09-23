@@ -8,7 +8,7 @@ if [ "$ARTICLE" = "t" ]; then
 elif [ "$ARTICLE" = "n" ]; then
     echo "en"
 else
-    #TODO: Add support of different dictionaries.
+    #TODO: Add a support of different dictionaries.
     SUGGESTIONS=`curl -s $SUGGESTION_PAGE | sed -E 's/<\/li>|<li>/\'$'\n/g' | grep -v '<\|^$'`
     if [ "$SUGGESTIONS" = "" ]; then
 	echo "Word not found! Check spelling and try again."
