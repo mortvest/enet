@@ -11,7 +11,7 @@ else
     #TODO: Add a support of different dictionaries.
     SUGGESTIONS=`curl -s $SUGGESTION_PAGE | sed -E 's/<\/li>|<li>/\'$'\n/g' | grep -v '<\|^$'`
     if [ "$SUGGESTIONS" = "" ]; then
-	echo "Word not found! Check spelling and try again."
+	echo "Word not found. Check spelling and try again."
     else
 	echo "Word not found. Did you mean one of these?"
 	echo "$SUGGESTIONS"
