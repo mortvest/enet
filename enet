@@ -13,7 +13,7 @@ else
     if [ "$SUGGESTIONS" = "" ]; then
 	echo "Word not found! Check spelling and try again."
     else
-	echo "Word not found! Did you mean one of these?"
+	echo "Word not found. Did you mean one of these?"
 	echo "$SUGGESTIONS"
     fi
 fi
