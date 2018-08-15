@@ -1,7 +1,7 @@
 #!/bin/bash
 RESULT_PAGE="http://ordnet.dk/ddo/ordbog?query=$1"
 SUGGESTION_PAGE="http://ordnet.dk/ws/ddo/livesearch?text=$1"
-ARTICLE=`curl -s $RESULT_PAGE | grep 'tekstmedium allow' | head -2 | tail -1  | grep -oh "\-.\?.\?[tn][,<]" | grep -oh "[nt]" | head -1`
+ARTICLE=`curl -Ls $RESULT_PAGE | grep 'tekstmedium allow' | head -2 | tail -1  | grep -oh "\-.\?.\?[tn][,<]" | grep -oh "[nt]" | head -1`
 
 if [ "$ARTICLE" = "t" ]; then
     echo "et"
