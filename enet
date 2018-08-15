@@ -9,10 +9,10 @@ elif [ "$ARTICLE" = "n" ]; then
     echo "en"
 else
     #TODO: Add a support of different dictionaries.
-	  echo "Word not found or it is not a noun. Check spelling and try again."
+    echo "Word not found or it is not a noun. Check spelling and try again."
     SUGGESTIONS=`curl -Ls $SUGGESTION_PAGE | sed -E 's/<\/li>|<li>/\'$'\n/g' | grep -v '<\|^$' | sed -e 's/^/    /'`
     if [ "$SUGGESTIONS" != "" ]; then
-	      echo "Did you mean one of these?"
-	      echo "$SUGGESTIONS"
+        echo "Did you mean one of these?"
+        echo "$SUGGESTIONS"
     fi
 fi
