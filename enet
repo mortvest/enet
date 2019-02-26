@@ -1,14 +1,16 @@
 #!/bin/bash
 RESULT_PAGE="http://ordnet.dk/ddo/ordbog?query=$1"
 SUGGESTION_PAGE="http://ordnet.dk/ws/ddo/livesearch?text=$1"
-ARTICLE=`curl -Ls $RESULT_PAGE | grep 'tekstmedium allow' | head -2 | tail -1  | grep -oh "\-.\?.\?[tn][,<]" | grep -oh "[nt]" | head -1`
-
-if [ "$ARTICLE" = "t" ]; then
+LINES=`curl -Ls $RESULT_PAGE | grep 'tekstmedium allow' | head -2 | tail -1`
+ARTICLE=`echo "$LINES" | grep -sohP ">\-.*?e[tn]" | grep -oh "[nt]" | tail -1`
+# echo "$LINES"
+# echo "$ARTICLE"
+if [ "$ARTICLE" == "t" ] ; then
     echo "et"
-elif [ "$ARTICLE" = "n" ]; then
+elif [ "$ARTICLE" == "n" ] ; then
     echo "en"
 else
-    #TODO: Add a support of different dictionaries.
+    #TODO: Add support of different dictionaries.
     echo "Word not found or it is not a noun. Check spelling and try again."
     SUGGESTIONS=`curl -Ls $SUGGESTION_PAGE | sed -E 's/<\/li>|<li>/\'$'\n/g' | grep -v '<\|^$' | sed -e 's/^/    /'`
     if [ "$SUGGESTIONS" != "" ]; then
